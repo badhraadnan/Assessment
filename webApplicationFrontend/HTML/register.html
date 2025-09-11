@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Register</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f4f4f9;
+    }
+    .form-container {
+      background: #fff;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .links {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .links a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Register</h2>
+    <input type="text" id="username" placeholder="Enter Username" required />
+    <input type="password" id="password" placeholder="Enter Password" required />
+    <button onclick="registerUser()">Register</button>
+    <div class="links">
+      Already have an account? <a href="../HTML/login.html">Login</a>
+    </div>
+  </div>
+
+  <script>
+    async function registerUser() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("http://localhost:8092/api/v1/user/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+          alert("✅ Registered Successfully! Redirecting to login...");
+          window.location.href = "../HTML/login.html"; // redirect to login
+        } else {
+          const error = await response.text();
+          alert("❌ Registration Failed: " + error);
+        }
+      } catch (err) {
+        alert("⚠️ Network error: " + err.message);
+      }
+    }
+  </script>
+
+</body>
+</html>
