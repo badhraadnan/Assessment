@@ -18,27 +18,27 @@ public class NoteController {
     private NoteService noteService;
 
     @PostMapping("/add")
-    public ResponseEntity<noteDto> addCustomer(@RequestBody noteDto dto){
+    public ResponseEntity<noteDto> addNotes(@RequestBody noteDto dto){
         return noteService.saveNotes(dto);
     }
 
     @GetMapping("/all-notes")
-    public ResponseEntity<List<noteDto>> getAllCustomer(){
+    public ResponseEntity<List<noteDto>> getAllNotes(){
         return noteService.getAllNotes();
     }
 
     @PutMapping("/update-notes")
-    public ResponseEntity<noteDto> updateCustomer(@RequestBody noteDto dto){
+    public ResponseEntity<noteDto> updateNotes(@RequestBody noteDto dto){
         return noteService.updateNote(dto);
     }
 
     @GetMapping("/{noteId}")
-    public ResponseEntity<noteDto> getCustomerById(@PathVariable UUID noteId){
+    public ResponseEntity<noteDto> getNoteById(@PathVariable UUID noteId){
         return noteService.getNoteById(noteId);
     }
 
     @DeleteMapping("/{noteId}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable UUID noteId){
+    public ResponseEntity<Void> deleteNote(@PathVariable UUID noteId){
         return noteService.deleteNote(noteId);
     }
 }
